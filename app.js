@@ -495,7 +495,6 @@ function viewActive() {
     const prevAll = lastSetsFor(e.exId);
     const hasWarm = e.sets.some((s) => s.type === "w");
     const canWarm = !timed && !bw && ex?.kind === "compound" && !hasWarm;
-    const canPlates = !timed && (ex?.eq === "barbell" || e.exId === "leg_press");
     let workNo = 0;
     h += `${e.ss && !ssPrev ? `<div class="ss-label">🔗 Superset</div>` : ""}<div class="card${e.ss ? " ss" : ""}${ssNext ? " ss-top" : ""}${ssPrev ? " ss-bottom" : ""}"><div class="row between"><div class="grow" data-act="exToggle" data-ei="${ei}"><h3 style="color:var(--accent)">${esc(exName(e.exId))} <span class="info${e._open ? " on" : ""}">ⓘ <svg viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px;${e._open ? "transform:rotate(180deg)" : ""}"><path d="M6 9l6 6 6-6"/></svg></span></h3><div class="small muted">${target}${e.plan.rest ? ` · rust ${e.plan.rest}s` : ""}</div></div>
       <button class="icon-btn" data-act="exMenu" data-ei="${ei}">${ICON.more}</button></div>
@@ -513,8 +512,7 @@ function viewActive() {
           <td><button class="check ${s.done ? "on" : ""}" data-act="toggleSet" data-ei="${ei}" data-si="${si}">${ICON.check}</button></td></tr>`;
       }).join("")}</table>
       <div class="row wrap" style="gap:2px"><button class="btn ghost sm" data-act="addSet" data-ei="${ei}">${ICON.plus} Set</button>
-      ${canWarm ? `<button class="btn ghost sm" data-act="addWarmups" data-ei="${ei}">🔥 Opwarmsets</button>` : ""}
-      ${canPlates ? `<button class="btn ghost sm" data-act="plates" data-ei="${ei}">🏋️ Schijven</button>` : ""}</div></div>`;
+      ${canWarm ? `<button class="btn ghost sm" data-act="addWarmups" data-ei="${ei}">🔥 Opwarmsets</button>` : ""}</div></div>`;
   });
   h += `<button class="btn block" style="margin-top:12px" data-act="pickExercise" data-mode="active">${ICON.plus} Oefening toevoegen</button>
     <button class="btn danger block" style="margin-top:10px" data-act="discard">Training annuleren</button></div>`;
@@ -699,23 +697,6 @@ function warmupSets(work, ex) {
     plan.push([w, reps]);
   }
   return plan;
-}
-const PLATES = [25, 20, 15, 10, 5, 2.5, 1.25];
-const PLATE_COLORS = { 25: "#e5484d", 20: "#3e63dd", 15: "#f5d90a", 10: "#30a46c", 5: "#eeeeee", 2.5: "#888", 1.25: "#555" };
-function platesHtml() {
-  const bar = U.plateLeg ? 0 : S.settings.bar ?? 20;
-  let side = (U.plateW - bar) / 2;
-  const list = [];
-  if (side > 0) for (const p of PLATES) while (side >= p - 1e-9) { list.push(p); side -= p; }
-  const left = Math.round(side * 2 * 100) / 100;
-  const chip = (v, l) => `<button class="chip ${bar === v ? "on" : ""}" data-act="plateSet" data-k="bar" data-v="${v}">${l}</button>`;
-  return `<div class="row between"><h3>Schijvencalculator</h3><button class="icon-btn" data-act="closeSheet">${ICON.close}</button></div>
-    <div class="row" style="justify-content:center;gap:10px;margin:14px 0">
-      <button class="btn" data-act="plateSet" data-v="-2.5">−2,5</button><div style="font-size:34px;font-weight:800;min-width:120px;text-align:center">${U.plateW} kg</div><button class="btn" data-act="plateSet" data-v="2.5">+2,5</button></div>
-    ${U.plateLeg ? `<p class="small muted">Leg press: schijven zonder stang, verdeel over beide kanten.</p>` : `<p class="small muted">Stang</p><div class="chips">${chip(20, "20 kg (normaal)")}${chip(15, "15 kg (dames)")}${chip(10, "10 kg (EZ/kort)")}</div>`}
-    <div class="bar-viz">${U.plateLeg ? "" : '<span class="sleeve"></span>'}${list.map((p) => `<span class="plate" style="background:${PLATE_COLORS[p]};height:${40 + p * 3}px">${String(p).replace(".", ",")}</span>`).join("")}</div>
-    ${U.plateW <= bar && !U.plateLeg ? `<p>Alleen de stang (${bar} kg).</p>` : `<p><b>Per kant:</b> ${list.length ? list.map((p) => String(p).replace(".", ",")).join(" + ") : "niets"}</p>`}
-    ${left > 0 ? `<p class="small" style="color:var(--warn)">Niet precies te maken: ${String(left).replace(".", ",")} kg over. Kies een gewicht in stappen van 2,5 kg.</p>` : ""}`;
 }
 function linkSuperset(list, i) {
   const a = list[i], b = list[i + 1];
@@ -915,14 +896,6 @@ const ACT = {
     e.sets.unshift(...sets.map(([w, r]) => ({ w: "", r: "", secs: "", done: false, type: "w", pw: w, pr: r, ps: "" })));
     save(); renderOverlay(); toast(`${sets.length} opwarmsets toegevoegd`);
   },
-  plates: (d) => {
-    const e = S.active.exercises[d.ei];
-    const first = e.sets.find((s) => !s.done && s.type !== "w") || e.sets.find((s) => s.type !== "w");
-    U.plateW = num(first?.w || first?.pw || e.plan.weight) || 60;
-    U.plateLeg = e.exId === "leg_press";
-    showSheet(platesHtml());
-  },
-  plateSet: (d) => { if (d.k === "bar") { S.settings.bar = +d.v; save(); } else U.plateW = Math.max(0, U.plateW + +d.v); $("#sheet .panel").innerHTML = '<div class="grab"></div>' + platesHtml(); },
   exMenu: (d) => {
     const a = S.active.exercises, e = a[d.ei];
     const linked = e.ss && (a[+d.ei + 1]?.ss === e.ss || a[+d.ei - 1]?.ss === e.ss);

@@ -99,7 +99,6 @@ Let op: verwijder je het icoon van je beginscherm, dan verwijdert iOS ook je geg
   - **F** tot falen.
   Daar kun je een set ook verwijderen.
 - **🔥 Opwarmsets**: vul je werkgewicht in bij set 1 en tik op **Opwarmsets**. De app zet er opwarmsets voor: lege stang × 10, 50% × 8, 70% × 5 en 85% × 2.
-- **🏋️ Schijven**: bij barbell-oefeningen en de leg press laat de app zien welke schijven je per kant op de stang zet. De stang kies je zelf: 20, 15 of 10 kg.
 - **🔗 Supersets**: koppel twee oefeningen via **⋯ → Superset met …**, tijdens je training of in **Schema's → Bewerken**. Je doet dan een set van de eerste, direct een set van de tweede, en pas daarna start de rusttimer.
 - **🏨 In een hotel**: twee manieren.
   - **Je eigen training**: **Bijsturen → Ik zit in een hotel**. Kies "Alleen mijn kamer" of "Hotelgym met dumbbells". Elke oefening wordt dan vervangen door een variant voor dezelfde spieren, bijvoorbeeld bench press → push-up en squat → split squat.
