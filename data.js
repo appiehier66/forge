@@ -2,10 +2,11 @@
 // eq: barbell | dumbbell | machine | cable | bodyweight | kettlebell
 // kind: compound | isolation | cardio
 // avoid: blessures waarbij deze oefening beter vermeden wordt
+// cardio: true = je logt minuten en km in plaats van kg en reps (fiets, loopband, ...)
 export const MUSCLES = {
   borst: "Borst", rug: "Rug", schouders: "Schouders", biceps: "Biceps",
   triceps: "Triceps", benen: "Benen", billen: "Billen", hamstrings: "Hamstrings",
-  kuiten: "Kuiten", core: "Core", onderarmen: "Onderarmen", nek: "Nek", fullbody: "Full body",
+  kuiten: "Kuiten", core: "Core", cardio: "Cardio", onderarmen: "Onderarmen", nek: "Nek", fullbody: "Full body",
 };
 
 export const EQUIPMENT = {
@@ -20,6 +21,8 @@ export const CATEGORIES = {
 
 const E = (id, name, muscle, eq, kind, avoid = [], timed = false) =>
   ({ id, name, muscle, eq, kind, avoid, timed });
+const C = (id, name, eq, avoid = []) =>
+  ({ id, name, muscle: "cardio", eq, kind: "cardio", avoid, timed: false, cardio: true });
 
 export const EXERCISES = [
   // Borst
@@ -31,6 +34,7 @@ export const EXERCISES = [
   E("pec_deck", "Pec deck", "borst", "machine", "isolation"),
   E("pushup", "Push-up", "borst", "bodyweight", "compound", ["pols"]),
   E("incline_pushup", "Incline push-up", "borst", "bodyweight", "compound"),
+  E("decline_pushup", "Decline push-up (voeten op bed)", "borst", "bodyweight", "compound", ["schouder"]),
   E("dips", "Dips", "triceps", "bodyweight", "compound", ["schouder"]),
   // Rug
   E("barbell_row", "Barbell row", "rug", "barbell", "compound", ["rug"]),
@@ -42,6 +46,8 @@ export const EXERCISES = [
   E("inverted_row", "Inverted row (tafel/stang)", "rug", "bodyweight", "compound"),
   E("deadlift", "Deadlift", "rug", "barbell", "compound", ["rug"]),
   E("superman", "Superman", "rug", "bodyweight", "isolation"),
+  E("door_row", "Deur-row (handdoek om deurklink)", "rug", "bodyweight", "compound"),
+  E("prone_y", "Liggende Y-raise", "rug", "bodyweight", "isolation"),
   E("face_pull", "Face pull", "schouders", "cable", "isolation"),
   // Schouders
   E("ohp", "Overhead press", "schouders", "barbell", "compound", ["schouder", "rug"]),
@@ -62,16 +68,17 @@ export const EXERCISES = [
   E("bench_dips", "Bench dips", "triceps", "bodyweight", "compound", ["schouder"]),
   // Benen
   E("squat", "Back squat", "benen", "barbell", "compound", ["knie", "rug"]),
-  E("front_squat", "Front squat", "benen", "barbell", "compound", ["knie", "pols"]),
-  E("leg_press", "Leg press", "benen", "machine", "compound", ["knie"]),
+  E("front_squat", "Front squat", "benen", "barbell", "compound", ["knie", "pols", "rug"]),
+  E("leg_press", "Leg press", "benen", "machine", "compound", []),
   E("goblet_squat", "Goblet squat", "benen", "dumbbell", "compound", ["knie"]),
   E("lunge", "Walking lunge", "benen", "dumbbell", "compound", ["knie"]),
   E("bulgarian", "Bulgarian split squat", "benen", "dumbbell", "compound", ["knie"]),
   E("leg_ext", "Leg extension", "benen", "machine", "isolation", ["knie"]),
   E("bw_squat", "Bodyweight squat", "benen", "bodyweight", "compound", ["knie"]),
   E("split_squat_bw", "Split squat", "benen", "bodyweight", "compound", ["knie"]),
+  E("bulgarian_bw", "Bulgarian split squat (voet op bed)", "benen", "bodyweight", "compound", ["knie"]),
   E("step_up", "Step-up", "benen", "bodyweight", "compound", ["knie"]),
-  E("wall_sit", "Wall sit", "benen", "bodyweight", "isolation", ["knie"], true),
+  E("wall_sit", "Wall sit", "benen", "bodyweight", "isolation", [], true),
   // Hamstrings / billen
   E("rdl", "Romanian deadlift", "hamstrings", "barbell", "compound", ["rug"]),
   E("db_rdl", "Dumbbell RDL", "hamstrings", "dumbbell", "compound", ["rug"]),
@@ -99,6 +106,14 @@ export const EXERCISES = [
   E("squat_jump", "Squat jumps", "benen", "bodyweight", "cardio", ["knie"]),
   E("kb_swing", "Kettlebell swing", "fullbody", "kettlebell", "compound", ["rug"]),
   E("bear_crawl", "Bear crawl", "fullbody", "bodyweight", "cardio", ["pols"], true),
+  // Cardio: minuten en km (nooit in krachtschema-slots of circuits)
+  C("bike", "Fiets / hometrainer", "machine"),
+  C("treadmill_run", "Loopband – hardlopen", "machine", ["knie"]),
+  C("treadmill_walk", "Loopband – stevig wandelen", "machine"),
+  C("rower", "Roeimachine", "machine", ["rug"]),
+  C("crosstrainer", "Crosstrainer", "machine"),
+  C("stairs", "Traploper", "machine", ["knie"]),
+  C("run_outside", "Hardlopen buiten", "bodyweight", ["knie"]),
 ];
 
 export const INJURIES = ["knie", "schouder", "rug", "pols"];

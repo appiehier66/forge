@@ -18,7 +18,7 @@ Je doet dit één keer. Reken op ongeveer 15 minuten.
 
 1. Klik rechtsboven op **+** en kies **New repository**.
 2. Bij **Repository name** vul je `forge` in.
-3. Kies **Public**. Dat moet voor gratis hosting. Er staan geen persoonlijke gegevens in de code: je workouts en je API-sleutel blijven op je telefoon.
+3. Kies **Public**. Dat moet voor gratis hosting. Er staan geen persoonlijke gegevens in de code: je workouts blijven op je telefoon.
 4. Klik op **Create repository**.
 
 ## Stap 3 – Upload de bestanden
@@ -44,23 +44,7 @@ Je doet dit één keer. Reken op ongeveer 15 minuten.
 3. Scroll naar beneden en tik op **Zet op beginscherm**.
 4. Tik op **Voeg toe**.
 
-Forge staat nu met het blauwe dumbbell-icoon op je beginscherm. Open hem voortaan altijd via dat icoon.
-
----
-
-## AI-coach aanzetten (optioneel)
-
-De **Snelle coach** werkt altijd en is gratis. Wil je de **AI-chat**, waarin je gewoon typt wat je wilt en de coach je schema aanpast? Daarvoor heb je een Claude API-sleutel nodig:
-
-1. Ga naar **console.anthropic.com** en maak een account.
-2. Ga naar **Billing** en zet er tegoed op, bijv. $5. Een gesprek kost meestal een paar cent.
-3. Ga naar **API Keys** en klik op **Create Key**. Kopieer de sleutel (`sk-ant-…`).
-4. Plak hem in Forge bij **Profiel → AI-coach → API-sleutel**.
-
-Tips:
-- De sleutel staat alleen op je telefoon. Deel hem met niemand. Wie hem heeft, kan op jouw tegoed chatten.
-- Stel in de console een maandlimiet in (**Limits**), dan kan het nooit duurder worden dan je wilt.
-- Is je sleutel ooit uitgelekt? Verwijder hem in de console en maak een nieuwe.
+Forge staat nu met het zwart-groene dumbbell-icoon op je beginscherm. Open hem voortaan altijd via dat icoon.
 
 ---
 
@@ -76,39 +60,35 @@ Let op: verwijder je het icoon van je beginscherm, dan verwijdert iOS ook je geg
 
 ## Hoe gebruik je de app?
 
-- **Training**: hier zie je je volgende training. Tik op **Start**. Vul per set je gewicht en reps in en vink de set af. De rusttimer start dan vanzelf.
-  Laat je een vak leeg, dan wordt de grijze suggestie gebruikt. Die is gebaseerd op je vorige keer: haalde je toen alle reps, dan stelt de app een hoger gewicht voor.
-- **Schema's**: je trainingen bekijken, bewerken en zelf maken, plus de bibliotheek met ruim 880 oefeningen. Filter op spiergroep, materiaal (ook "Zonder gewicht") en soort (kracht, explosief, cardio, stretching). Oefeningen met **NL** hebben Nederlandse uitleg, de rest Engelse.
-- **Coach**:
-  - **Snelle coach**: maakt een schema op basis van je profiel, maakt circuits op tijd en past een training aan als je moe bent, weinig tijd hebt of ergens pijn hebt.
-  - **AI-chat**: gewoon vragen stellen. Stelt de coach een schema voor, dan tik je op **Opslaan**.
-- **Uitleg per oefening**: tik op de naam van een oefening (met ⓘ), in je training, in je schema of in de bibliotheek. Je ziet:
-  - foto's van de begin- en eindpositie, die om de beurt verschijnen;
-  - een korte uitleg in het Nederlands;
-  - een knop naar video's op YouTube;
-  - je eigen gewichten: je doel, je beste set en de laatste keren.
-- **Gewichten automatisch aanpassen**: elke oefening in je schema heeft een doelgewicht.
-  - Na je eerste training wordt vastgelegd wat je deed.
-  - De app kijkt naar je reps. Deed je vorige keer 8·8·7 op hetzelfde gewicht, dan is het doel nu 9·9·8.
-  - Haal je bij alle sets de bovenkant van je reps (bijv. 3 × 10)? Dan gaat het doel 1 stap omhoog: +2,5 kg (barbell en machines), +2 kg (dumbbells) of +1,25 kg (kleine spieroefeningen).
-  - Zit je 2 trainingen op rij onder je minimum aantal reps, dan gaat het doel 1 stap omlaag.
-  - Na elke training zie je wat er is aangepast. Je kunt het doelgewicht ook zelf wijzigen via **Schema's → Bewerken**, of de automatische aanpassing uitzetten bij **Profiel → Training**.
-- **Soort set**: tik tijdens je training op het setnummer en kies:
-  - **O** opwarmen: telt niet mee voor records, sets per spiergroep en de gewichtsaanpassing, en de rust is korter;
-  - **D** drop set;
-  - **F** tot falen.
-  Daar kun je een set ook verwijderen.
-- **🔥 Opwarmsets**: vul je werkgewicht in bij set 1 en tik op **Opwarmsets**. De app zet er opwarmsets voor: lege stang × 10, 50% × 8, 70% × 5 en 85% × 2.
-- **🔗 Supersets**: koppel twee oefeningen via **⋯ → Superset met …**, tijdens je training of in **Schema's → Bewerken**. Je doet dan een set van de eerste, direct een set van de tweede, en pas daarna start de rusttimer.
-- **🏨 In een hotel**: twee manieren.
-  - **Je eigen training**: **Bijsturen → Ik zit in een hotel**. Kies "Alleen mijn kamer" of "Hotelgym met dumbbells". Elke oefening wordt dan vervangen door een variant voor dezelfde spieren, bijvoorbeeld bench press → push-up en squat → split squat.
-  - **Snel iets doen**: **Snel starten → Hotelkamer**. Kies 20, 30 of 45 minuten en je krijgt een full body training in supersets met een korte finisher.
-  - In beide gevallen tik je op **Start nu**. De training is dan alleen voor vandaag: je eigen schema en je doelgewichten veranderen niet, en je volgende sportschooltraining schuift gewoon door.
-- **Voortgang**:
-  - **sets per spiergroep** deze week en vorige week. Het groene vlak is je doel: 10-20 sets bij spiermassa, 6-12 bij fit blijven;
-  - volume per week, een grafiek per oefening, je PR's en je geschiedenis.
-  Op het Training-scherm zie je welke spiergroepen deze week nog achterlopen.
-- **Profiel**: doelen, niveau, dagen, tijd, plek en blessures. Daarop baseert de coach alles.
+- **Vandaag**: bovenaan staat wat je gaat doen, bijv. *💪 Gewichten · Sportschool*. Tik erop om te wisselen naar **Circuit**, **Cardio** of **Hotel**. Je ziet dan je workout. Tik op **Start**.
+  - **↻ Andere workout**: de coach maakt een nieuwe. Je ❤️ favorieten blijven staan.
+  - **Pas aan**: alleen voor vandaag korter (ongeveer 30% korter, hooguit 30 min; eerst minder sets en kortere rust, dan pas minder oefeningen), lichter, of iets ontzien als er iets pijn doet. Bij **Iets doet pijn** kiest de coach vervangers die passen bij waar je bent (in het hotel geen machines), met verse reps en zonder je oude gewicht.
+  - **↻ Andere workout** in het hotel: elke oefening wordt een andere van dezelfde soort (een row blijft een row; met dumbbells blijft een dumbbell-oefening een dumbbell-oefening), met reps die erbij passen (zonder gewicht 10-20).
+  - **Oefening aanpassen**: tik op een oefening in je workout. Je kunt sets en reps (bij cardio: minuten) wijzigen, een andere oefening kiezen, hem eerder doen of eruit halen. Dit wordt bewaard voor de volgende keer (bij Hotel en Circuit alleen voor vandaag).
+  - **+ Oefening toevoegen**: zoek in de lijst. Staat hij er niet bij? Tik op **Maak eigen oefening**.
+- **Trainen**: je ziet één oefening tegelijk, met een foto. Zet kg en reps goed met **−/+** en tik op **Set klaar ✓**. Het grijze getal is je plan; typ om het te vervangen of gebruik − / +. Typ je iets wat niet kan kloppen (bijv. 600 kg), dan vraagt de app het even na. De rusttimer start vanzelf; aan het eind piept hij en wordt je scherm groen. Na je laatste set ga je vanzelf door naar de volgende oefening die nog niet af is; als alles af is, tik je op **Training afronden ✓**. Tik je **Set ongedaan maken**, dan stopt de rusttimer.
+  - Tik op een set in het lijstje om hem aan te passen.
+  - Tik op de foto of de naam (ⓘ) voor uitleg en een video. Heeft een oefening geen foto, dan staat de uitleg er meteen.
+  - Via **⋯** kies je een andere oefening, sla je hem over, maak je hem favoriet of zeg je **Niet meer doen**. Sets die je al deed, blijven bewaard.
+- **Na afloop** tik je **👍 of 👎**.
+  - 👍: klaar, de workout is bewaard.
+  - 👎: tik aan wat je niet meer wilt (mag ook niets) en tik op **Opslaan**. De volgende keer krijg je andere oefeningen (je favorieten blijven). Was het je eigen workout, dan staat die bij Profiel › Oude workouts. In het hotel verandert je sportschool-schema niet. Wat je afkeurt, komt niet meer terug; terugzetten kan bij Profiel.
+  - **Overslaan**: bewaren zonder oordeel.
+- **De coach leert wat je fijn vindt**: na een 👍 kiest hij de oefeningen die je deed vaker (in het hotel niet), na een 👎 minder vaak. Een ❤️ krijgt een oefening alleen als jij hem favoriet maakt.
+- **❤️ Favoriet**: tik bij Vandaag op een oefening (of tijdens het trainen op **⋯**) en tik op **🤍 Maak favoriet**. Je favorieten staan bij Profiel; daar haal je ze ook weg. **Niet meer doen** gaat altijd voor.
+- **Tijdens het trainen** zie je ook wat je **vorige keer** deed. Bij de eerste zware oefening krijg je **2 opwarmsets** voorgesteld, afgerond op 5 kg. Til je meer dan ooit, dan zie je **🏆 Nieuw record!**
+- **Eerste keer een oefening?** De app vult een startgewicht in dat past bij je niveau (grote oefeningen zoals bench press en squat zwaarder). Pas het aan tot je net het aantal reps haalt.
+- **Cardio** (fiets, loopband, roeien, crosstrainer, traploper of buiten hardlopen): kies bovenaan bij Vandaag **🚴 Cardio**, je apparaat en hoe lang. Apparaten die je blessure belasten, staan er niet tussen. Bij **Andere oefening kiezen** zie je dan alleen cardio, en een eigen oefening wordt daar ook cardio. Je vult **minuten en km** in in plaats van kg en reps; km mag leeg blijven; tik daarna op **Gedaan ✓**. Je ziet wat je vorige keer deed en je doel: verder komen in dezelfde tijd. Kom je verder dan ooit, dan zie je **🏆 Nieuw record!** Een cardiotraining telt mee in je week, maar verandert niets aan je krachtschema.
+- **Zonder gewicht** (hotel): haal je alle reps, dan krijg je de volgende keer een zwaardere variant (bijv. push-up → decline push-up). Cardio wordt in een hotel zonder spullen **buiten hardlopen** (behalve bij een knieblessure).
+- **Rustweek**: na 6 weken trainen stelt de coach een lichtere week voor (±10% lichter dan wat je voor de rustweek tilde, altijd minstens 1 stap, 1 set minder en dezelfde reps als vorige keer).
+- **Back-up**: één keer per maand herinnert de app je eraan.
+- **Gewichten** past de app zelf aan. Deed je vorige keer 8·8·7, dan is je doel nu 9·9·8. Haal je alle sets op de bovenkant van je reps, dan gaat het gewicht 1 stap omhoog (dumbbells 2 kg, stang, kabel en machine 2,5 kg, leg press 5 kg). Zit je 2× onder je reps, dan wordt je doel 1 stap lichter dan wat je tilde; terug naar dat zwaardere gewicht gaat pas na 2 goede trainingen. Pak je zelf zwaarder en haal je minder reps, dan blijft je doel staan. Staat een oefening op meer dagen, dan gaat het nieuwe gewicht overal mee.
+- **Voortgang**: je trainingen per week, een grafiek per oefening (kg, of km bij cardio), je records en je geschiedenis.
+- **Profiel**: je doel, niveau, dagen, tijd, indeling en blessures. Bij Boven/onder, Voorkant/achterkant en Push/pull/legs rouleert de coach de dagen, zodat alles even vaak aan de beurt komt. Bij **Cardio na krachttraining** kies je 10 of 20 minuten en je favoriete apparaat: de coach zet dat aan het eind van elke krachttraining. Dat komt bovenop je tijd per training: je krachtoefeningen blijven hetzelfde. Wijzig je iets, dan vraagt de app of hij een nieuw schema moet maken. Voeg je een blessure toe, dan wisselt de coach meteen de oefeningen die hem belasten (bij knieklachten blijven leg press en wall sit, zak dan minder diep).
+- **Tijd per training**: de coach vult de minuten die je kiest (20 min = 3 korte oefeningen, 30 min = 4 à 5). Grote oefeningen eerst (na **Maak nieuw schema**), dan de kleine (armen, schouders, buik, extra borst), de spiergroep die die week het minst aan bod kwam eerst. Past niet alles, dan doe je kleine oefeningen 2 sets, zodat elke spiergroep toch aan bod komt. Twee grote oefeningen voor dezelfde spiergroep op één dag (bijv. row en pulldown): de tweede 1 set minder. Met **Kracht** doe je alleen de eerste grote oefening van de dag zwaar (4-6 reps), de rest 6-8 (6-10 als je ook spiermassa kiest).
+- **✨ Je coach is vernieuwd**: die melding zie je één keer bovenaan Vandaag. Tik **Nieuw schema** voor nieuwe workouts (je eigen workouts gaan dan naar Oude workouts) of **Zo laten** (je eigen workouts blijven in je schema).
+- **Oude workouts**: je eigen workouts en circuits uit de oude app staan bij Profiel › **Oude workouts**. Tik er een aan om hem vandaag te doen; je schema blijft hetzelfde. Staat bovenaan 🏨 Hotel, dan past de coach hem aan voor het hotel (geen machines of kabels).
+- **Circuit** begint met 2 minuten rustig opwarmen. Oefeningen die je overslaat, tellen niet mee.
 
 ## Bronnen
 

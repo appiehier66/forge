@@ -35,7 +35,7 @@ svg { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; 
 #view { padding: 4px 16px calc(96px + var(--safe-b)); max-width: 640px; margin: 0 auto; }
 
 #tabs {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 6; display: grid; grid-template-columns: repeat(5, 1fr);
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 6; display: grid; grid-template-columns: repeat(3, 1fr);
   background: rgba(0, 0, 0, .96); backdrop-filter: blur(12px); border-top: 1px solid var(--line);
   padding: 6px 4px calc(6px + var(--safe-b));
 }
@@ -144,7 +144,7 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 #sheet .grab { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 0 auto 12px; }
 
 #toast {
-  position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(90px + var(--safe-b)); z-index: 60; background: #2a2a31; color: var(--text);
+  position: fixed; left: 50%; transform: translateX(-50%); top: calc(64px + env(safe-area-inset-top)); z-index: 300; background: #2a2a31; color: var(--text);
   padding: 10px 16px; border-radius: 999px; font-size: 14px; box-shadow: 0 6px 20px rgba(0,0,0,.4); max-width: 90vw; text-align: center;
 }
 
@@ -202,7 +202,7 @@ a.btn { text-decoration: none; }
 .info.on { color: var(--accent); }
 .inline-info { background: var(--surface-2); border-radius: 12px; padding: 10px; margin-top: 8px; }
 .anim.small { aspect-ratio: 16 / 10; margin-top: 0; }
-.seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--surface-2); border-radius: 10px; padding: 3px; margin: 12px 0; }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: var(--surface-2); border-radius: 10px; padding: 3px; margin: 12px 0; }
 .seg button { border: 0; background: none; color: var(--muted); padding: 8px; border-radius: 8px; font-weight: 600; font-size: 14px; }
 .seg button.on { background: var(--surface); color: var(--text); }
 
@@ -251,3 +251,83 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 .tile b { font-size: 17px; font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; }
 .tile span:last-child { font-size: 13px; color: var(--muted); }
 .tile.on { border-color: var(--accent); }
+
+/* ===== Simpele versie ===== */
+.seg { margin: 0 0 10px; }
+.seg button { font-size: 15px; padding: 10px; }
+.btn.big { min-height: 56px; font-size: 18px; margin-top: 14px; }
+.card.today h3 { font-size: 22px; }
+.exlist .list-item { padding: 8px 0; }
+.dots { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+.dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--surface-2); }
+.dots span.done { background: rgba(198, 244, 50, .45); }
+.dots span.on { background: var(--accent); width: 24px; border-radius: 6px; }
+.setno { background: transparent; color: var(--muted); }
+.chip.bad { background: var(--bad); border-color: var(--bad); color: #fff; }
+
+/* Week-bolletjes */
+.card.week { padding: 14px 16px; margin-top: 14px; }
+.accent { color: var(--accent); }
+.wdots { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 10px; }
+.wd { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.wd i { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font-style: normal; font-weight: 900; font-size: 14px; color: #000; }
+.wd.did i { background: var(--accent); border-color: var(--accent); }
+.wd.now i { border-color: var(--accent); }
+.wd span { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+.wd.now span { color: var(--text, #fff); font-weight: 800; }
+
+/* Rust voorbij */
+.flash { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: var(--accent); color: #000; font-size: 34px; font-weight: 900; pointer-events: none; animation: flash 1.6s ease forwards; }
+@keyframes flash { 0% { opacity: 0; } 10% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Trainen: foto, huidige set, +/- */
+.anim.big { aspect-ratio: 16 / 10; margin-top: 10px; cursor: pointer; }
+.curset { margin-top: 14px; }
+.curset.donebox { text-align: center; color: var(--accent); font-weight: 800; padding: 14px; background: var(--accent-soft); border-radius: 12px; }
+.steps { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0 12px; }
+.steps .step:only-child { grid-column: 1 / -1; }
+.step .lbl { display: block; text-align: center; font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--muted); margin-bottom: 4px; }
+.step .row { gap: 6px; flex-wrap: nowrap; }
+.step input { flex: 1; min-width: 0; height: 56px; text-align: center; font-size: 26px; font-weight: 900; background: var(--surface-2); border: 0; border-radius: 12px; color: var(--text); padding: 0; }
+.step input::placeholder { color: var(--text); opacity: .45; } /* je plan: goed leesbaar, maar duidelijk nog niet ingevuld */
+.sbtn { width: 44px; height: 56px; flex: none; border: 0; border-radius: 12px; background: var(--surface-2); color: var(--accent); font-size: 26px; font-weight: 900; }
+.sbtn:active { background: var(--accent); color: #000; }
+.setlist { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+.sl { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 14px; text-align: left; }
+.sl.now { border-color: var(--accent); color: var(--text); }
+.sl.done { color: var(--text); }
+.sl.done i { color: var(--accent); font-style: normal; font-weight: 900; }
+.sl.add { justify-content: center; border-style: dashed; }
+.sl.add svg { width: 16px; height: 16px; }
+
+/* Bewerken op Vandaag */
+.list-item .edit-dot { color: var(--muted); font-size: 20px; margin-left: 4px; }
+.erow { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.erow .sbtn { width: 44px; height: 44px; }
+.erow .eval { min-width: 64px; text-align: center; font-size: 20px; }
+
+/* Review-fixes */
+.step input { font-size: 22px; }
+.sbtn { width: 38px; }
+.lastline { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.lastline b { color: var(--text); font-weight: 700; }
+.warm { font-size: 13px; margin-top: 6px; padding: 6px 10px; border-radius: 8px; background: rgba(255,181,71,.12); color: var(--warn); }
+.warm b { color: var(--text); }
+.card.note { padding: 14px 16px; margin-top: 12px; border-color: var(--accent); }
+.sumgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)); gap: 8px; margin-top: 10px; }
+.sumgrid div { background: var(--surface-2); border-radius: 12px; padding: 10px; text-align: center; }
+.sumgrid b { display: block; font-size: 18px; }
+.sumgrid span { font-size: 11px; color: var(--muted); }
+.sumgrid i { font-style: normal; }
+.chips.eqrow { margin-top: 6px; }
+.chips.eqrow .chip.on { background: var(--text); color: #000; border-color: var(--text); }
+.flabel { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 6px 0 6px; }
+.chips.eqrow { margin-top: 0; margin-bottom: 8px; }
+.chips.eqrow .chip { font-size: 12px; padding: 6px 11px; }
+/* Rustiger Vandaag: één regel voor soort en plek */
+.modebar { display: flex; align-items: center; gap: 10px; width: 100%; padding: 14px 16px; margin-bottom: 12px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--text); font-size: 15px; text-align: left; }
+.modebar b { color: var(--accent); }
+#sheet .seg { margin-bottom: 6px; }
+/* Favorieten: klein hartje achter de naam en een aan/uit-knopje */
+.heart { font-size: .72em; margin: 0 2px 0 3px; vertical-align: .08em; }
+.chip.fav { font-size: 13px; padding: 6px 12px; }

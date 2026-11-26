@@ -1,5 +1,5 @@
 // Offline: eerst netwerk (zodat updates direct binnenkomen), anders de cache.
-const CACHE = "forge-v7";
+const CACHE = "forge-v35";
 const IMG_CACHE = "forge-img-v1";
 const SHELL = ["./", "index.html", "styles.css", "app.js", "data.js", "coach.js", "ai.js", "howto.js", "exercises-db.js", "manifest.webmanifest", "icons/icon-180.png", "icons/icon-192.png"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL))); self.skipWaiting(); });

@@ -20,6 +20,10 @@ const H = {
   pullup: ["Pullups", "Hang met handen iets breder dan je schouders.", "Trek je borst naar de stang, schouders omlaag.", "Gecontroleerd zakken tot gestrekte armen. Te zwaar? Gebruik een band."],
   chinup: ["Chin-Up", "Handpalmen naar je toe, schouderbreedte.", "Trek je kin over de stang.", "Langzaam zakken tot gestrekte armen."],
   inverted_row: ["Inverted_Row", "Lig onder een stang of stevige tafel, lichaam recht.", "Trek je borst naar de stang.", "Rustig terug. Voeten verder naar voren maakt het zwaarder."],
+  decline_pushup: ["Decline_Push-Up", "Voeten op het bed of een stoel, handen op de vloer iets breder dan je schouders.", "Lichaam recht als een plank, zak tot je borst bijna de vloer raakt.", "Duw je krachtig omhoog. Hoe hoger je voeten, hoe zwaarder."],
+  bulgarian_bw: ["Split_Squats", "Ga met je rug naar het bed staan en leg één voet achter je op het bed.", "Zak recht naar beneden tot je voorste dij bijna horizontaal is.", "Duw je op via je voorste hiel. Eerst alle reps links, dan rechts."],
+  door_row: ["", "Sla een handdoek om beide deurklinken van een dichte deur die van je af opent.", "Pak de uiteinden, voeten dicht bij de deur, leun achterover met gestrekte armen.", "Trek je borst naar de deur, knijp je schouderbladen samen, rustig terug.", "Test eerst of de klink stevig vastzit."],
+  prone_y: ["", "Lig op je buik, armen schuin boven je hoofd in een Y, duimen omhoog.", "Til je armen een paar cm op door je schouderbladen naar achter en beneden te trekken.", "Houd 2 tellen vast, rustig terug. Nek lang, kijk naar de vloer."],
   superman: ["Superman", "Lig op je buik, armen gestrekt voor je.", "Til armen, borst en benen tegelijk een paar cm op.", "Houd 1-2 tellen vast en zak rustig terug."],
   face_pull: ["Face_Pull", "Kabel met touw op ooghoogte.", "Trek het touw naar je gezicht, handen uit elkaar, ellebogen hoog.", "Knijp je schouderbladen samen en ga rustig terug."],
   ohp: ["Standing_Military_Press", "Stang op je sleutelbeenderen, billen en buik aangespannen.", "Duw de stang recht omhoog, hoofd even naar achter.", "Bovenin hoofd door je armen, gecontroleerd terug."],
@@ -39,7 +43,7 @@ const H = {
   bench_dips: ["Bench_Dips", "Handen op de rand van een bank, benen gestrekt of gebogen.", "Zak tot je ellebogen ca. 90° zijn.", "Duw jezelf omhoog. Blijf dicht bij de bank."],
   squat: ["Barbell_Squat", "Stang op je bovenrug, voeten op schouderbreedte, tenen iets naar buiten.", "Zak alsof je gaat zitten, knieën in de richting van je tenen, borst omhoog.", "Minimaal tot je heupen op kniehoogte zijn, dan krachtig omhoog."],
   front_squat: ["Front_Barbell_Squat", "Stang voor op je schouders, ellebogen hoog.", "Zak recht naar beneden met een rechtop bovenlijf.", "Duw omhoog vanuit je hielen en midvoet."],
-  leg_press: ["Leg_Press", "Voeten op schouderbreedte midden op het platform.", "Zak tot je knieën ca. 90° zijn, onderrug blijft tegen het kussen.", "Duw terug zonder je knieën op slot te zetten."],
+  leg_press: ["Leg_Press", "Voeten op schouderbreedte midden op het platform.", "Zak tot je knieën ca. 90° zijn, onderrug blijft tegen het kussen.", "Duw terug zonder je knieën op slot te zetten.", "Bij knieklachten: zak alleen zo diep als pijnvrij."],
   goblet_squat: ["Goblet_Squat", "Houd een dumbbell of kettlebell voor je borst.", "Zak diep tussen je knieën, borst omhoog.", "Duw omhoog vanuit je hele voet."],
   lunge: ["Dumbbell_Lunges", "Dumbbells langs je lichaam, grote stap naar voren.", "Zak tot je achterste knie bijna de grond raakt.", "Duw af en stap door met het andere been."],
   bulgarian: ["Split_Squat_with_Dumbbells", "Achterste voet op een bank, voorste voet ruim naar voren.", "Zak recht naar beneden op je voorste been.", "Duw omhoog vanuit je voorste hiel."],
@@ -47,7 +51,7 @@ const H = {
   bw_squat: ["Bodyweight_Squat", "Voeten op schouderbreedte, armen naar voren.", "Zak zo diep als je kunt met een rechte rug.", "Duw omhoog vanuit je hielen."],
   split_squat_bw: ["Split_Squats", "Ruime stap uit elkaar, bovenlijf rechtop.", "Zak recht naar beneden tot je achterste knie bijna de grond raakt.", "Duw omhoog. Doe alle reps en wissel dan van been."],
   step_up: ["Dumbbell_Step_Ups", "Zet één voet op een stevige bank of trede.", "Duw jezelf omhoog met dat been, niet afzetten met je achterste voet.", "Rustig terug naar beneden."],
-  wall_sit: [null, "Rug tegen de muur, schuif naar beneden.", "Knieën op 90°, boven je enkels.", "Houd vast en blijf rustig doorademen."],
+  wall_sit: [null, "Rug tegen de muur, schuif naar beneden.", "Knieën op 90°, boven je enkels.", "Houd vast en blijf rustig doorademen.", "Bij knieklachten: zak minder diep."],
   rdl: ["Romanian_Deadlift", "Sta met de stang voor je dijen, lichte knik in je knieën.", "Duw je heupen naar achter, stang dicht langs je benen, rug recht.", "Zak tot je een stretch in je hamstrings voelt en kom omhoog met je heupen."],
   db_rdl: ["Stiff-Legged_Dumbbell_Deadlift", "Dumbbells voor je dijen, lichte knik in je knieën.", "Heupen naar achter, rug recht, dumbbells langs je benen.", "Stretch in je hamstrings, dan omhoog met je heupen."],
   leg_curl: ["Lying_Leg_Curls", "Lig op je buik, rol net boven je hielen.", "Krul je hielen naar je billen.", "Langzaam terug laten zakken."],
@@ -71,6 +75,14 @@ const H = {
   squat_jump: ["Freehand_Jump_Squat", "Zak in een squat.", "Spring explosief omhoog.", "Land zacht door je knieën en ga direct de volgende squat in."],
   kb_swing: ["One-Arm_Kettlebell_Swings", "Kettlebell tussen je benen, heupen naar achter, rug recht.", "Stoot je heupen krachtig naar voren; de bel zwaait tot borsthoogte.", "Laat hem terugzwaaien tussen je benen. Het is een heupbeweging, geen squat."],
   bear_crawl: [null, "Op handen en voeten, knieën net boven de grond.", "Kruip vooruit: rechterhand met linkervoet, en andersom.", "Rug plat, heupen laag."],
+  // Cardio
+  bike: ["Bicycling_Stationary", "Zadel op heuphoogte: onderaan is je knie bijna gestrekt.", "Rechtop zitten, schouders los, rustig doorademen.", "Praattempo: je kunt nog praten. Zwaarder: 30 sec hard, 1 min rustig."],
+  treadmill_run: ["Running_Treadmill", "Begin 3 minuten rustig. Zet de helling op 1%.", "Korte, lichte passen, rechtop, armen ontspannen mee.", "Praattempo. Zwaarder: 1 min snel, 2 min rustig."],
+  treadmill_walk: ["Walking_Treadmill", "Stevig doorstappen, rechtop, niet aan de leuning hangen.", "Zet de helling op 5-10%: zo wordt wandelen echt training.", "Je ademt sneller, maar je kunt nog praten."],
+  rower: ["Rowing_Stationary", "Eerst afduwen met je benen, dan iets achterover, dan de stang naar je onderborst.", "Terug in omgekeerde volgorde: armen, bovenlijf, benen. Rug recht.", "Praattempo. Zwaarder: 1 min hard, 1 min rustig."],
+  crosstrainer: ["Elliptical_Trainer", "Rechtop staan, voeten plat op de pedalen.", "Duw en trek mee met je armen, buik licht aangespannen.", "Praattempo. Zwaarder: meer weerstand of korte intervallen."],
+  stairs: ["Stairmaster", "Rechtop, hele voet op de trede.", "Hooguit licht vasthouden: niet op de leuning leunen.", "Begin rustig, dit is zwaarder dan het lijkt. Praattempo."],
+  run_outside: ["Trail_Running_Walking", "Warm 5 minuten op met wandelen of rustig joggen.", "Korte passen, land onder je lichaam, rechtop en ontspannen.", "Praattempo. Sneller worden? Af en toe 1 min hard."],
 };
 
 export function howto(id) {
