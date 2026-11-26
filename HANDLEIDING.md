@@ -67,6 +67,7 @@ Let op: verwijder je het icoon van je beginscherm, dan verwijdert iOS ook je geg
   - **Oefening aanpassen**: tik op een oefening in je workout. Je kunt sets en reps (bij cardio: minuten) wijzigen, een andere oefening kiezen, hem eerder doen of eruit halen. Dit wordt bewaard voor de volgende keer (bij Hotel en Circuit alleen voor vandaag).
   - **+ Oefening toevoegen**: zoek in de lijst. Staat hij er niet bij? Tik op **Maak eigen oefening**.
 - **Trainen**: je ziet één oefening tegelijk, met een foto. Zet kg en reps goed met **−/+** en tik op **Set klaar ✓**. Het grijze getal is je plan; typ om het te vervangen of gebruik − / +. Typ je iets wat niet kan kloppen (bijv. 600 kg), dan vraagt de app het even na. De rusttimer start vanzelf; aan het eind piept hij en wordt je scherm groen. Na je laatste set ga je vanzelf door naar de volgende oefening die nog niet af is; als alles af is, tik je op **Training afronden ✓**. Tik je **Set ongedaan maken**, dan stopt de rusttimer.
+  - Tik bovenin op **☰** voor al je oefeningen: tik om ernaartoe te gaan, sleep **≡** om de volgorde te veranderen, **✕** om er een weg te halen, of voeg er een toe. Daar zit ook **Training stoppen** (opslaan wat je deed, of weggooien).
   - Tik op een set in het lijstje om hem aan te passen.
   - Tik op de foto of de naam (ⓘ) voor uitleg en een video. Heeft een oefening geen foto, dan staat de uitleg er meteen.
   - Via **⋯** kies je een andere oefening, sla je hem over, maak je hem favoriet of zeg je **Niet meer doen**. Sets die je al deed, blijven bewaard.

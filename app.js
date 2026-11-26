@@ -616,7 +616,7 @@ function viewActive() {
   const a = S.active;
   a.cur = Math.min(a.cur || 0, Math.max(0, a.exercises.length - 1));
   const e = a.exercises[a.cur];
-  const head = `<div class="ohead"><button class="btn ghost" data-act="minimize" aria-label="Verkleinen">${ICON.down}</button><div style="text-align:center" class="grow"><b>${esc(a.name)}</b><div class="small muted" id="elapsed">${mmss((Date.now() - a.start) / 1000)}</div></div><button class="btn good sm" data-act="finish">Klaar</button></div>`;
+  const head = `<div class="ohead"><button class="btn ghost" data-act="minimize" aria-label="Verkleinen">${ICON.down}</button><button class="btn ghost listbtn" data-act="exList" aria-label="Oefeningen">☰</button><div style="text-align:center" class="grow"><b>${esc(a.name)}</b><div class="small muted" id="elapsed">${mmss((Date.now() - a.start) / 1000)}</div></div><button class="btn good sm" data-act="finish">Klaar</button></div>`;
   if (!e) return head + `<div class="obody"><p class="muted">Geen oefeningen meer.</p><button class="btn primary block" data-act="finish">Training afronden</button></div>`;
   const ex = exById(e.exId), timed = ex?.timed, bw = ex?.eq === "bodyweight";
   const { imgs, cues, en } = howto(e.exId);
@@ -714,11 +714,70 @@ function sourceIndex(a) {
   const id = a.routineId || a.countsAs;
   return id ? S.routines.findIndex((r) => r.id === id) : -1;
 }
-function finishWorkout() {
+// ---------- Oefeningen-lijst tijdens het trainen: springen, slepen, weghalen, toevoegen, stoppen ----------
+function exListHtml() {
+  const a = S.active;
+  const rows = a.exercises.map((e, i) => {
+    const n = e.sets.filter((s) => s.done).length, all = e.sets.length;
+    const st = n === all && all ? "✓" : n ? `${n}/${all}` : "";
+    return `<div class="xrow ${i === a.cur ? "now" : ""} ${n === all && all ? "done" : ""}" data-i="${i}">
+      <span class="xhandle" aria-label="Slepen">≡</span>
+      <button class="xname" data-act="xGo" data-i="${i}"><b>${esc(exName(e.exId))}</b>${st ? `<span class="small muted"> · ${st}</span>` : ""}</button>
+      <button class="icon-btn" data-act="xRemove" data-i="${i}" aria-label="Weghalen">${ICON.close}</button></div>`;
+  }).join("");
+  return `<div class="row between"><h3>Oefeningen</h3><button class="icon-btn" data-act="closeSheet" aria-label="Sluiten">${ICON.close}</button></div>
+    <p class="small muted" style="margin:2px 0 10px">Tik om ernaartoe te gaan · sleep ≡ om de volgorde te veranderen</p>
+    <div id="xlist">${rows || `<p class="small muted">Geen oefeningen.</p>`}</div>
+    <button class="sl add" style="margin-top:8px;width:100%" data-act="xAdd">${ICON.plus} Oefening toevoegen</button>
+    <button class="btn danger block" style="margin-top:16px" data-act="xStop">Training stoppen</button>`;
+}
+function stopHtml() {
+  const done = S.active.exercises.some((e) => e.sets.some((s) => s.done));
+  return `<h3>Training stoppen?</h3>
+    <div class="stack" style="margin-top:12px">
+      ${done ? `<button class="btn primary block" data-act="xStopSave">💾 Opslaan wat ik deed</button>` : ""}
+      <button class="btn danger block" data-act="xStopDiscard">🗑 Weggooien</button>
+      <button class="btn ghost block" data-act="exList">Toch doorgaan</button>
+    </div>`;
+}
+// Slepen met het ≡-handvat (werkt met vinger en muis)
+let drag = null;
+document.addEventListener("pointerdown", (ev) => {
+  const h = ev.target.closest(".xhandle"); if (!h || !S.active) return;
+  const row = h.closest(".xrow"), list = $("#xlist");
+  ev.preventDefault();
+  drag = { row, list, from: +row.dataset.i, startY: ev.clientY, rows: [...list.children] };
+  row.classList.add("dragging"); h.setPointerCapture?.(ev.pointerId);
+});
+document.addEventListener("pointermove", (ev) => {
+  if (!drag) return;
+  const dy = ev.clientY - drag.startY;
+  drag.row.style.transform = `translateY(${dy}px)`;
+  const mid = drag.row.getBoundingClientRect().top + drag.row.offsetHeight / 2;
+  let to = drag.from;
+  drag.rows.forEach((r, i) => { if (r === drag.row) return; const b = r.getBoundingClientRect(), m = b.top + b.height / 2 - (r.style.transform ? 0 : 0); if (i < drag.from && mid < m) to = Math.min(to, i); if (i > drag.from && mid > m) to = Math.max(to, i); });
+  drag.to = to;
+  const hgt = drag.row.offsetHeight + 6;
+  drag.rows.forEach((r, i) => { if (r === drag.row) return; r.style.transform = (drag.from < i && i <= to) ? `translateY(${-hgt}px)` : (to <= i && i < drag.from) ? `translateY(${hgt}px)` : ""; });
+});
+const endDrag = () => {
+  if (!drag) return;
+  const { from, to } = drag; drag = null;
+  if (to != null && to !== from && S.active) {
+    const a = S.active, cur = a.exercises[a.cur];
+    const [x] = a.exercises.splice(from, 1); a.exercises.splice(to, 0, x);
+    a.cur = a.exercises.indexOf(cur); save();
+  }
+  if (S.active) { showSheet(exListHtml()); renderOverlay(); }
+};
+document.addEventListener("pointerup", endDrag);
+document.addEventListener("pointercancel", endDrag);
+
+function finishWorkout(force = false) {
   const a = S.active;
   const done = a.exercises.map((e) => ({ exId: e.exId, sets: e.sets.filter((s) => s.done).map(({ w, r, secs, mins, km, done }) => (e.cardio ? { mins, km, done } : { w, r, secs, done })) })).filter((e) => e.sets.length);
   const left = a.exercises.filter((e) => !e.sets.some((s) => s.done)).length;
-  if (done.length && left && !confirm(`Nog ${left} oefening${left > 1 ? "en" : ""} niet gedaan. Toch afronden?`)) return;
+  if (done.length && left && !force && !confirm(`Nog ${left} oefening${left > 1 ? "en" : ""} niet gedaan. Toch afronden?`)) return;
   if (!done.length) {
     if (confirm("Nog geen sets afgevinkt. Training stoppen zonder opslaan?")) { S.active = null; U.showActive = false; U.rest = null; save(); render(); }
     return;
@@ -1161,6 +1220,23 @@ const ACT = {
     save(); renderOverlay();
   },
   exMenu: () => showSheet(exMenuHtml()),
+  exList: () => showSheet(exListHtml()),
+  xGo: (d) => { const a = S.active; a.cur = +d.i; U.infoOpen = false; U.selSet = null; save(); closeSheet(); renderOverlay(); $("#overlay").scrollTop = 0; },
+  xRemove: (d) => {
+    const a = S.active, i = +d.i, e = a.exercises[i];
+    if (e.sets.some((s) => s.done) && !confirm(`${exName(e.exId)} weghalen? De sets die je al deed, worden dan niet bewaard.`)) return;
+    const cur = a.exercises[a.cur];
+    a.exercises.splice(i, 1);
+    a.cur = cur === e ? Math.min(i, Math.max(0, a.exercises.length - 1)) : a.exercises.indexOf(cur);
+    U.selSet = null; U.infoOpen = false; save(); renderOverlay(); showSheet(exListHtml()); toast(`${exName(e.exId)} weggehaald`);
+  },
+  xAdd: () => { U.picker = { q: "", muscle: "", eq: S.prefs.place === "hotel" && S.prefs.hotelEq === "bodyweight" ? "bodyweight" : "", mode: "activeAdd" }; showSheet(pickerHtml()); },
+  xStop: () => showSheet(stopHtml()),
+  xStopSave: () => { closeSheet(); finishWorkout(true); },
+  xStopDiscard: () => {
+    if (!confirm("Deze training weggooien? Niets wordt bewaard.")) return;
+    S.active = null; U.showActive = false; U.rest = null; U.selSet = null; keepAwake(false); closeSheet(); saveNow(); render(); toast("Training gestopt");
+  },
   // ❤️ Favoriet aan/uit: aan = 5 (de coach kiest hem liever), uit = vergeten
   fav: (d) => {
     const on = !isFav(d.id);
@@ -1195,6 +1271,11 @@ const ACT = {
       if (item.mins != null && old?.mins) item.mins = old.mins; // cardio: je minuten blijven
       if (mode === "add") r.exercises.push(item); else r.exercises[U.picker.i] = item;
       closeSheet(); todayChanged(); toast(mode === "add" ? `${exName(d.id)} toegevoegd` : `Gewisseld naar ${exName(d.id)}`); return;
+    }
+    if (mode === "activeAdd") {
+      const a = S.active;
+      if (a.exercises.some((x) => x.exId === d.id)) { toast("Die staat al in je training"); return; }
+      a.exercises.push(newActiveEx(d.id, planFor(d.id))); save(); renderOverlay(); showSheet(exListHtml()); toast(`${exName(d.id)} toegevoegd`); return;
     }
     const a = S.active, e = a.exercises[a.cur];
     if (d.id === e.exId) { closeSheet(); return; } // dezelfde oefening: er verandert niets (geen dubbele rij)

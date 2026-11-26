@@ -331,3 +331,12 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 /* Favorieten: klein hartje achter de naam en een aan/uit-knopje */
 .heart { font-size: .72em; margin: 0 2px 0 3px; vertical-align: .08em; }
 .chip.fav { font-size: 13px; padding: 6px 12px; }
+
+/* Oefeningen-lijst tijdens het trainen */
+.listbtn { font-size: 20px; padding: 0 10px; }
+.xrow { display: flex; align-items: center; gap: 6px; padding: 4px 6px; margin-bottom: 6px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); transition: transform .15s; }
+.xrow.now { border-color: var(--accent); }
+.xrow.done .xname b { color: var(--muted); }
+.xrow.dragging { transition: none; z-index: 5; position: relative; box-shadow: 0 8px 24px rgba(0,0,0,.6); border-color: var(--accent); }
+.xhandle { width: 40px; height: 44px; display: grid; place-items: center; font-size: 22px; color: var(--muted); touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.xname { flex: 1; text-align: left; background: none; border: 0; color: var(--text); padding: 10px 4px; font-size: 15px; }
